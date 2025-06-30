@@ -1,0 +1,11 @@
+services:
+  electricity-api:
+    build: .
+    ports:
+      - '8000:8000'
+    container_name: electricity-api
+    restart: unless-stopped
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      # - PYTHONFAULTHANDLER=1
