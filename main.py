@@ -34,13 +34,13 @@ async def validation_exception_handler(
     )
 
 
-@app.get("/health")
+@app.get("/health", description="Health check endpoint.")
 async def health_check() -> JSONResponse:
     """Health check endpoint"""
     return JSONResponse(content={"status": "healthy"}, status_code=200)
 
 
-@app.get("/mean-price/{state}")
+@app.get("/mean-price/{state}", description="Get the mean price for an Australian state.")
 async def mean_price(state: AustralianState) -> JSONResponse:
     """Get the electricity usage for a given state."""
 
@@ -58,13 +58,6 @@ async def mean_price(state: AustralianState) -> JSONResponse:
         )
 
 
-@app.get("/available-states")
-async def available_states() -> JSONResponse:
-    """Get the available states."""
-    return JSONResponse(
-        content={"states": [state.value for state in AustralianState]},
-        status_code=200,
-    )
 if __name__ == "__main__":
     from uvicorn import run
 

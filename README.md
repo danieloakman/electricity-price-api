@@ -30,6 +30,10 @@ make build
 - Run `make install-dev`
 - Run `make dev` for the server to reload on code changes.
 
+## Docs
+
+See [FastAPI Docs Page](http://localhost:8000/docs)
+
 ## Example request(s)
 
 ### GET /mean-price/{state}
