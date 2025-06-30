@@ -16,10 +16,10 @@ lint:
 	flake8 *.py tests/*.py
 
 test:
-	pytest tests/ -v --cov=main --cov-report=term-missing
+	PYTHONPATH=. pytest tests/ -v --cov=main --cov-report=term-missing
 
 type-check:
-	mypy main.py tests/ --ignore-missing-imports
+	mypy *.py tests/*.py --ignore-missing-imports
 
 build:
 	docker-compose build

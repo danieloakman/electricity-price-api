@@ -24,6 +24,7 @@
       python -m venv $VENV
     fi
     source ./$VENV/bin/activate
+    export PYTHONPATH=$(pwd)
     export SHELL=${pkgs.zsh}/bin/zsh
     exec $SHELL
   '';
