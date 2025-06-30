@@ -20,7 +20,8 @@ def _read_electricity_prices() -> pd.DataFrame:
 
 def mean_price_by_state(state: AustralianState) -> float:
     df = _read_electricity_prices()
-    result = df[df["state"] == state]["price"].mean()
+    series = df[df["state"] == state]["price"]
+    result = series.mean()
     if pd.isna(result):
-        raise ValueError(f"State {state} not found in data")
+        raise ValueError(f"State {state} not found in data or no prices available")
     return float(result)
