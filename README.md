@@ -1,10 +1,45 @@
 # Electricity Price Api Challenge
 
-# Install
+## Setup & Install
 
-TODO
+### With Docker:
 
-## Challenge
+To start the docker container:
+
+```bash
+make up
+```
+
+To stop:
+
+```bash
+make down
+```
+
+To build or rebuild:
+
+```bash
+make build
+```
+
+### Without Docker:
+
+- Requires Python v3.12
+- (Optional) Create a venv with whatever method you want.
+  - If using nix, there is a nix shell file provided, run `nix-shell` and this will install the required python version and and put you in a venv.
+- Run `make install-dev`
+- Run `make dev` for the server to reload on code changes.
+
+## Example request(s)
+
+### GET /mean-price/{state}
+
+```bash
+$ curl http://localhost:8000/mean-price/NSW
+{"state":"NSW","mean_price":62.29139880952381}
+```
+
+## Challenge (from forked readme)
 
 In this challenge, you will build a Python-based web service that provides electricity
 price information based on historical data.
