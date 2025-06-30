@@ -40,7 +40,7 @@ async def health_check() -> JSONResponse:
     return JSONResponse(content={"status": "healthy"}, status_code=200)
 
 
-@app.get("/")
+@app.get("/mean-price/{state}")
 async def root(state: AustralianState) -> JSONResponse:
     """Get the electricity usage for a given state."""
 
