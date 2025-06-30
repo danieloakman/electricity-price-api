@@ -2,28 +2,25 @@ import pandas as pd
 from os import path
 from validation import AustralianState
 
+CSV_PATH = "data/coding_challenge_prices.csv"
+
 
 def _read_electricity_prices() -> pd.DataFrame:
     """Read the electricity prices CSV file and return a pandas DataFrame."""
-    csv_path = "data/coding_challenge_prices.csv"
 
-    if not path.exists(csv_path):
-        raise FileNotFoundError(f"File {csv_path} not found!")
+    if not path.exists(CSV_PATH):
+        raise FileNotFoundError(f"File {CSV_PATH} not found!")
 
-    # Read the CSV file
-    df = pd.read_csv(csv_path)
+    df = pd.read_csv(CSV_PATH)
     # Normalise the state column to uppercase:
     df["state"] = df["state"].str.upper()
+
     return df
 
 
 def mean_price_by_state(state: AustralianState) -> float:
     df = _read_electricity_prices()
-    # if state not in df["state"].values:
-    #     raise ValueError(f"State {state} not found in data")
-    # a = df["state"] == state
-    # b = df[df["state"] == state.value]
-    mean = df[df["state"] == state]["price"].mean()
-    if pd.isna(mean):
+    result = df[df["state"] == state]["price"].mean()
+    if pd.isna(result):
         raise ValueError(f"State {state} not found in data")
-    return float(mean)
+    return float(result)
