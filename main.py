@@ -3,6 +3,9 @@ from fastapi import FastAPI, Query, Request
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 
+from validation import AustralianState
+from electricity_prices import mean_price_by_state
+
 app = FastAPI(title="Electricity Usage API", version="0.1.0")
 
 
@@ -38,14 +41,17 @@ async def health_check() -> JSONResponse:
 
 
 @app.get("/")
-async def root(
-    state: str = Query(..., description="The state of the electricity usage to query.")
-) -> JSONResponse:
+async def root(state: AustralianState) -> JSONResponse:
     """Get the electricity usage for a given state."""
-    return JSONResponse(content={"state": state}, status_code=200)
+
+    mean_price = mean_price_by_state(state)
+    print(f"Mean price for {state} is {mean_price}")
+    return JSONResponse(
+        content={"state": state, "mean_price": mean_price},
+        status_code=200,
+    )
 
 
 if __name__ == "__main__":
     from uvicorn import run
-
     run(app, host="0.0.0.0", port=8000)
