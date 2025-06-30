@@ -44,14 +44,21 @@ async def health_check() -> JSONResponse:
 async def root(state: AustralianState) -> JSONResponse:
     """Get the electricity usage for a given state."""
 
-    mean_price = mean_price_by_state(state)
-    print(f"Mean price for {state} is {mean_price}")
-    return JSONResponse(
-        content={"state": state, "mean_price": mean_price},
-        status_code=200,
-    )
+    print("state:", state)
+    try:
+        mean_price = mean_price_by_state(state)
+        return JSONResponse(
+            content={"state": state, "mean_price": mean_price},
+            status_code=200,
+        )
+    except ValueError as e:
+        return JSONResponse(
+            content={"error": str(e)},
+            status_code=400,
+        )
 
 
 if __name__ == "__main__":
     from uvicorn import run
+
     run(app, host="0.0.0.0", port=8000)
